@@ -1,0 +1,21 @@
+{
+  "name": "diffwithbeautify",
+  "version": "1.0.0",
+  "description": "View diff between two files through beautify.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkskto/diffWithBeautify.git"
+  },
+  "author": "Takeshi Kato <tkskto@gmail.com> (https://github.com/tkskto)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tkskto/diffWithBeautify/issues"
+  },
+  "dependencies": {
+    "js-beautify": "1.13.13",
+    "diff": "5.0.0"
+  }
+}
