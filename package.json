@@ -1,6 +1,6 @@
 {
   "name": "diffwithbeautify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "View diff between two files through beautify.",
   "scripts": {
     "dev": "vite",
