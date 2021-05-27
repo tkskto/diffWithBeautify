@@ -42,22 +42,23 @@
     .wrapper {
         position: relative;
         width: 100%;
-        height: calc(100vh - 40px);
+        height: calc(100vh - 43px);
         margin-top: -10px;
     }
     .window {
         display: flex;
-        overflow-y: scroll;
+        overflow-y: auto;
         height: 100%;
     }
     .part {
         width: 100%;
         height: 100%;
         padding: 8px;
-        overflow-x: scroll;
+        box-sizing: border-box;
+        overflow-x: auto;
     }
     .added {
-        background-color: rgba(0, 255, 0, 0.3);;
+        background-color: rgba(0, 255, 0, 0.3);
     }
     .removed {
         background-color: rgba(255, 0, 0, 0.3);
