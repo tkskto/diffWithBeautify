@@ -38,18 +38,20 @@
         position: absolute;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 40px;
         width: 60%;
         height: 50%;
-        padding: 16px;
-        background-color: #ffffff;
-        border-radius: 6px;
+        padding: 24px 32px;
+        background-color: #fffff9;
+        border-radius: 10px;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
         margin: auto;
-        box-shadow: 0 0 10px 10px rgba(100, 100, 255, 0.05);
+        border: 2px solid #fafaff;
+        box-shadow: 20px 20px 60px #d9d9d4,
+                    -20px -20px 60px #ffffff;
     }
 
     .inner {

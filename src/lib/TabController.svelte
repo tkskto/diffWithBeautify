@@ -35,7 +35,7 @@
         position: relative;
         padding-top: 10px;
         padding-bottom: 10px;
-        overflow-x: scroll;
+        overflow-x: auto;
     }
     .tab {
         width: 100%;
@@ -63,7 +63,6 @@
         margin-top: 0;
         padding-top: 10px;
         font-size: 16px;
-        font-weight: bold;
         background-color: #fffff9;
     }
     .icon {
