@@ -1,5 +1,5 @@
 <script lang="ts">
-    import logo from '../assets/img/github.png'
+    import logo from '../assets/img/github.png';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();

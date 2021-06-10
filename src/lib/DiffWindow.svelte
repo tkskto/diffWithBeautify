@@ -1,39 +1,60 @@
 <script lang="ts">
+    import MyWorker from '../assets/worker/diff?worker'
     import beautify from 'js-beautify';
-    import {diffArrays} from 'diff';
+    import {wrap} from 'comlink';
     import InputDialog from './InputDialog.svelte';
+    import SameDialog from './SameDialog.svelte';
+
+    const worker = new MyWorker();
+    let isFinished = false;
     let result = [];
+    let isSame = false;
+    let html = '';
 
-    function start(data) {
+    worker.addEventListener('error', function (...args) {
+        console.log(args);
+    });
+
+    async function start(data) {
         const {oldFile, newFile} = data.detail;
-        const beautifiedOldFile = beautify.js(oldFile.content);
-        const beautifiedNewFile = beautify.js(newFile.content);
-        const splitedOldFile = beautifiedOldFile.split(/\r|\n|\r\n/);
-        const splitedNewFile = beautifiedNewFile.split(/\r|\n|\r\n/);
 
-        result = diffArrays(splitedOldFile, splitedNewFile);
+        if (oldFile.content === newFile.content) {
+            isSame = true;
+        } else {
+            const beautifiedOldText = beautify.js(oldFile.content);
+            const beautifiedNewText = beautify.js(newFile.content);
+            const computeDiff = wrap(worker);
+
+            try {
+                html = await computeDiff(beautifiedOldText, beautifiedNewText);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        isFinished = true;
+    }
+
+    function reset() {
+        isFinished = false;
+        result = [];
+        isSame = false;
     }
 </script>
 
 <div class="wrapper">
     <div class="window">
-        <div class="part">
-            <pre><code>
-                {#each result as item}
-                    {#each item.value as line}
-                        {#if item.added}
-                            <div class="added"><span class="mark">+</span>{line}</div>
-                        {:else if item.removed}
-                            <div class="removed"><span class="mark">-</span>{line}</div>
-                        {:else}
-                            <div>{line}</div>
-                        {/if}
-                    {/each}
-                {/each}
-            </code></pre>
-        </div>
+        {#if isSame}
+            <SameDialog on:close={reset} />
+        {:else}
+            <div class="part">
+                <pre><code>
+                    {@html html}
+                </code></pre>
+            </div>
+        {/if}
     </div>
-    {#if result.length === 0}
+    {#if !isFinished}
         <InputDialog on:start={start} />
     {/if}
 </div>
@@ -56,17 +77,7 @@
         padding: 8px;
         box-sizing: border-box;
         overflow-x: auto;
-    }
-    .added {
-        background-color: rgba(0, 255, 0, 0.3);
-    }
-    .removed {
-        background-color: rgba(255, 0, 0, 0.3);
-    }
-    .mark {
-        display: inline-block;
-        text-align: center;
-        width: 20px;
-        margin-right: 4px;
+        /*font-family: monospace;*/
+        white-space: pre;
     }
 </style>
