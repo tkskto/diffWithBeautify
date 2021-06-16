@@ -24,10 +24,6 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-  body, div {
-    margin: 0;
-  }
-
   .window {
     display: none;
   }
