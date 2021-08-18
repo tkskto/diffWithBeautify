@@ -36,6 +36,8 @@
                     resultDiffMatchPatch = await diffFunctions.computeDiffWithDiffMatchPatch(beautifiedOldText, beautifiedNewText);
                     resultJsDiff = await diffFunctions.computeDiffWithJsDiff(beautifiedOldText, beautifiedNewText);
                 }
+
+                resultDiffMatchPatch = resultDiffMatchPatch.replaceAll('<ins ', '<ins tabindex="0" ').replaceAll('<del ', '<del tabindex="0" ');
             } catch (err) {
                 console.log(err);
             }
@@ -55,13 +57,16 @@
     {#if !isFinished}
         <InputDialog on:start={start} />
     {:else}
-        <label class="tool">
-            <span>change diff tool</span>
-            <select bind:value={tool}>
-                <option value="0">jsdiff</option>
-                <option value="1">diff-match-patch</option>
-            </select>
-        </label>
+        <div class="head">
+            <p>You can focus the point of difference with <kbd>Tab</kbd> key.</p>
+            <label class="tool">
+                <span>change diff tool</span>
+                <select bind:value={tool}>
+                    <option value="0">jsdiff</option>
+                    <option value="1">diff-match-patch</option>
+                </select>
+            </label>
+        </div>
         <div class="window">
             {#if isSame}
                 <SameDialog on:close={reset} />
@@ -72,9 +77,9 @@
                             {#each resultJsDiff as item}
                                 {#each item.value as line}
                                     {#if item.added}
-                                        <div class="added"><span class="mark">+</span>{line}</div>
+                                        <div class="added" tabindex="0"><span class="mark">+</span>{line}</div>
                                     {:else if item.removed}
-                                        <div class="removed"><span class="mark">-</span>{line}</div>
+                                        <div class="removed" tabindex="0"><span class="mark">-</span>{line}</div>
                                     {:else}
                                         <div>{line}</div>
                                     {/if}
@@ -103,8 +108,16 @@
         display: flex;
         gap: 10px;
         justify-content: flex-end;
-        margin-bottom: 8px;
-        margin-right: 8px;
+    }
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        font-size: 14px;
+    }
+    .head p {
+        margin: 0;
     }
     .window {
         display: flex;

@@ -32,7 +32,7 @@
         <div class="title">New File</div>
         <FileUploader on:uploaded={onUploadedSecond}/>
     </div>
-    <div class="inner">
+    <div class="inner tool">
         <div class="title">diff tool</div>
         <div class="row">
             <label><input type="radio" name="tool" value="0" bind:group={selectedTool}>jsdiff</label>
@@ -48,9 +48,9 @@
         position: absolute;
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 30px;
         width: 60%;
-        height: 50%;
+        height: 60%;
         padding: 24px 32px;
         background-color: #fffff9;
         border-radius: 10px;
@@ -68,6 +68,10 @@
         height: 50%;
         display: flex;
         flex-direction: column;
+    }
+
+    .tool {
+        height: auto;
     }
 
     .title {
